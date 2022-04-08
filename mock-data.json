@@ -1,0 +1,86 @@
+[
+  {
+    "sku": "29-431-5175",
+    "name": "Alphazap",
+    "price": 4.5,
+    "category": "furniture",
+    "dimensions": { "height": 333, "width": 333, "length": 200 }
+  },
+  {
+    "sku": "51-721-3834",
+    "name": "Prodder",
+    "price": 3.13,
+    "category": "book",
+    "weight": 1
+  },
+  {
+    "sku": "85-644-6437",
+    "name": "Fix San",
+    "price": 15.22,
+    "category": "book",
+    "weight": 1
+  },
+  {
+    "sku": "15-788-6093",
+    "name": "It",
+    "price": 44.94,
+    "category": "book",
+    "weight": 1
+  },
+  {
+    "sku": "88-194-3939",
+    "name": "Tampflex",
+    "price": 58.72,
+    "category": "DVD",
+    "size": 333
+  },
+  {
+    "sku": "36-036-4455",
+    "name": "Alpha",
+    "price": 87.65,
+    "category": "furniture",
+    "dimensions": { "height": 333, "width": 333, "length": 100 }
+  },
+  {
+    "sku": "68-403-3308",
+    "name": "Fixflex",
+    "price": 75.37,
+    "category": "furniture",
+    "dimensions": { "height": 200, "width": 200, "length": 333 }
+  },
+  {
+    "sku": "53-502-2293",
+    "name": "Zoolab",
+    "price": 83.97,
+    "category": "DVD",
+    "size": 100
+  },
+  {
+    "sku": "94-233-7884",
+    "name": "Lotlux",
+    "price": 8.04,
+    "category": "DVD",
+    "size": 333
+  },
+  {
+    "sku": "07-887-8795",
+    "name": "Treeflex",
+    "price": 92.04,
+    "category": "book",
+    "weight": 1
+  },
+  {
+    "sku": "93-719-9512",
+    "name": "Sonsing",
+    "price": 20.29,
+    "category": "furniture",
+    "dimensions": { "height": 100, "width": 100, "length": 200 }
+  },
+  {
+    "sku": "57-619-8275",
+    "name": "Rank",
+    "price": 4.83,
+    "category": "book",
+    "weight": 2
+  }
+]
