@@ -6,8 +6,8 @@ import {
   deleteProduct,
 } from "../controllers/productController.js";
 
-router.route("/createProduct").post(createProduct);
+router.route("/add-product").post(createProduct);
 router.route("/").get(getAllProducts);
-router.route("/:id").delete(deleteProduct);
+router.route("/:ids").delete(deleteProduct);
 
 export default router;

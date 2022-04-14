@@ -23,7 +23,8 @@ app.get("/", (req, res) => {
   res.send("Welcome");
 });
 
-app.use("/api/v1", productsRoutes);
+app.use("/api/v1/", productsRoutes);
+// app.use("/api/v1/:id", productsRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

@@ -10,14 +10,10 @@ const getAllProducts = async (req, res) => {
     .json({ products, totalProducts: products.length, numOfPages: 1 });
 };
 const deleteProduct = async (req, res) => {
-  const { id: productId } = req.params;
-  const product = await Product.findOne({ _id: productId });
-
-  if (!product) {
-    throw new Error(`No product with ${productId}`);
-  }
-  await product.remove();
-  res.status(200).json({ msg: "Success, product removed" });
+  await Product.deleteMany({
+    _id: { $in: req.params.ids.split(",") },
+  });
+  res.status(200).json({ msg: "Success! Job removed" });
 };
 
 export { createProduct, getAllProducts, deleteProduct };

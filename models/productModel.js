@@ -33,6 +33,7 @@ const ProductSchema = new mongoose.Schema({
   size: {
     type: Number,
   },
+  select: false,
 });
 
 export default mongoose.model("Product", ProductSchema);
