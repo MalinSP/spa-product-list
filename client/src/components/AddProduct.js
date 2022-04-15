@@ -1,30 +1,34 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAppContext } from "../context/AppContext";
 import Footer from "./Footer";
 import FormRow from "./FormRow";
 import FormRowSelect from "./FormRowSelect";
 
-const initialState = {
-  name: "",
-  email: "",
-  password: "",
-  list: ["DVD", "Dimensions", "Book"],
-};
 const AddProduct = () => {
-  const [values, setValues] = useState(initialState);
+  const {
+    sku,
+    name,
+    price,
+    size,
+    height,
+    width,
+    length,
+    weight,
+    list,
+    defaultOption,
+    handleChange,
+  } = useAppContext();
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(e.target);
   };
 
-  const handleChange = (e) => {
-    console.log({ ...values.name });
-    setValues({ ...values.name, [e.target.name]: e.target.value });
+  const handleProductInput = (e) => {
+    handleChange({ name: e.target.name, value: e.target.value });
   };
-  const handleListInput = (e) => {
-    console.log(e.target);
-  };
+
   return (
     <Wrapper>
       <main>
@@ -42,63 +46,65 @@ const AddProduct = () => {
         <form className='form' onSubmit={onSubmit}>
           <FormRow
             type='text'
-            name='SKU'
-            value={values.name}
-            handleChange={handleChange}
+            name='sku'
+            value={sku}
+            handleChange={handleProductInput}
           />
           <FormRow
             type='text'
             name='name'
-            value={values.name}
-            handleChange={handleChange}
+            value={name}
+            handleChange={handleProductInput}
           />
           <FormRow
             type='number'
             name='price'
-            value={values.name}
-            handleChange={handleChange}
+            value={price}
+            handleChange={handleProductInput}
           />
           <FormRowSelect
             labelText='Type switcher'
-            name='type'
-            value={values.name}
-            list={values.list}
-            handleChange={handleListInput}
+            name='defaultOption'
+            value={defaultOption}
+            list={list}
+            handleChange={handleProductInput}
           />
+
           <div className='dvd'>
             <FormRow
               type='text'
               name='size'
-              value={values.name}
-              handleChange={handleChange}
+              value={size}
+              handleChange={handleProductInput}
             />
           </div>
+
           <div className='furniture'>
             <FormRow
-              type='text'
+              type='number'
               name='height'
-              value={values.name}
-              handleChange={handleChange}
+              value={height}
+              handleChange={handleProductInput}
             />
             <FormRow
-              type='text'
+              type='number'
               name='width'
-              value={values.name}
-              handleChange={handleChange}
+              value={width}
+              handleChange={handleProductInput}
             />
             <FormRow
-              type='text'
+              type='number'
               name='length'
-              value={values.name}
-              handleChange={handleChange}
+              value={length}
+              handleChange={handleProductInput}
             />
           </div>
-          <div className='dvd'>
+          <div className='book'>
             <FormRow
-              type='text'
+              type='number'
               name='weight'
-              value={values.name}
-              handleChange={handleChange}
+              value={weight}
+              handleChange={handleProductInput}
             />
           </div>
         </form>

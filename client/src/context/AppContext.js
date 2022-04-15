@@ -6,6 +6,7 @@ import {
   GET_PRODUCTS_SUCCESS,
   DELETE_PRODUCT_BEGIN,
   TOGGLE_PRODUCT,
+  HANDLE_CHANGE,
 } from "./actions.js";
 
 const AppContext = React.createContext();
@@ -17,10 +18,16 @@ const initialState = {
   totalProducts: 0,
   numOfPages: 1,
   selectedItems: [],
+  sku: "",
   name: "",
-  email: "",
-  password: "",
-  list: ["DVD", "Dimensions", "Book"],
+  price: "",
+  size: "",
+  height: "",
+  width: "",
+  length: "",
+  weight: "",
+  defaultOption: "DVD",
+  list: ["DVD", "Furniture", "Book"],
 };
 
 const AppProvider = ({ children }) => {
@@ -51,10 +58,6 @@ const AppProvider = ({ children }) => {
   };
 
   const deleteProduct = async (selectedItems) => {
-    // let id = selectedItems.forEach((id, index) => {
-    //   id = selectedItems[index];
-    //   console.log(id);
-    // });
     dispatch({ type: DELETE_PRODUCT_BEGIN });
     try {
       await axios.delete(`http://localhost:5000/api/v1/${selectedItems}`);
@@ -64,6 +67,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -71,6 +78,7 @@ const AppProvider = ({ children }) => {
         getProducts,
         deleteProduct,
         toggleProduct,
+        handleChange,
       }}
     >
       {children}

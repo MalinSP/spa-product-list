@@ -3,8 +3,8 @@ import {
   GET_PRODUCTS_SUCCESS,
   DELETE_PRODUCT_BEGIN,
   TOGGLE_PRODUCT,
+  HANDLE_CHANGE,
 } from "./actions.js";
-import { initialState } from "./AppContext.js";
 
 const reducer = (state, action) => {
   if (action.type === GET_PRODUCTS_BEGIN) {
@@ -42,6 +42,12 @@ const reducer = (state, action) => {
   if (action.type === DELETE_PRODUCT_BEGIN) {
     return {
       ...state,
+    };
+  }
+  if (action.type === HANDLE_CHANGE) {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value,
     };
   }
 

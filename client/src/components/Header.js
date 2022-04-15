@@ -10,7 +10,6 @@ const Header = ({ deleteProduct, selectedItems }) => {
           <Link to='/add-product' type='button' className='btn-add'>
             Add
           </Link>
-
           <button
             type='button'
             className='btn-delete'
