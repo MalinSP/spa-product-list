@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { useAppContext } from "../context/AppContext";
-import Footer from "./Footer";
-import FormRow from "./FormRow";
-import FormRowSelect from "./FormRowSelect";
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { useAppContext } from '../context/AppContext'
+import Footer from './Footer'
+import FormRow from './FormRow'
+import FormRowSelect from './FormRowSelect'
 
 const AddProduct = () => {
   const {
@@ -18,16 +18,19 @@ const AddProduct = () => {
     list,
     defaultOption,
     handleChange,
-  } = useAppContext();
+    onChange,
+    showContainer,
+    showHide,
+  } = useAppContext()
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-  };
+    e.preventDefault()
+    console.log(e.target.value)
+  }
 
   const handleProductInput = (e) => {
-    handleChange({ name: e.target.name, value: e.target.value });
-  };
+    handleChange({ name: e.target.name, value: e.target.value })
+  }
 
   return (
     <Wrapper>
@@ -69,49 +72,53 @@ const AddProduct = () => {
             list={list}
             handleChange={handleProductInput}
           />
-
-          <div className='dvd'>
-            <FormRow
-              type='text'
-              name='size'
-              value={size}
-              handleChange={handleProductInput}
-            />
-          </div>
-
-          <div className='furniture'>
-            <FormRow
-              type='number'
-              name='height'
-              value={height}
-              handleChange={handleProductInput}
-            />
-            <FormRow
-              type='number'
-              name='width'
-              value={width}
-              handleChange={handleProductInput}
-            />
-            <FormRow
-              type='number'
-              name='length'
-              value={length}
-              handleChange={handleProductInput}
-            />
-          </div>
-          <div className='book'>
-            <FormRow
-              type='number'
-              name='weight'
-              value={weight}
-              handleChange={handleProductInput}
-            />
-          </div>
+          {defaultOption === 'DVD' && (
+            <div className='dvd'>
+              <FormRow
+                type='text'
+                name='size'
+                value={size}
+                handleChange={handleProductInput}
+              />
+            </div>
+          )}
+          {defaultOption === 'Furniture' && (
+            <div className='furniture'>
+              <FormRow
+                type='number'
+                name='height'
+                value={height}
+                handleChange={handleProductInput}
+              />
+              <FormRow
+                type='number'
+                name='width'
+                value={width}
+                handleChange={handleProductInput}
+              />
+              <FormRow
+                type='number'
+                name='length'
+                value={length}
+                handleChange={handleProductInput}
+              />
+            </div>
+          )}
+          {defaultOption === 'Book' && (
+            <div className='book'>
+              <FormRow
+                type='number'
+                name='weight'
+                value={weight}
+                handleChange={handleProductInput}
+              />
+            </div>
+          )}
         </form>
       </main>
     </Wrapper>
-  );
-};
+  )
+}
 
 const Wrapper = styled.header`
   nav {
@@ -149,6 +156,6 @@ const Wrapper = styled.header`
     font-size: 0.8rem;
     text-decoration: none;
   }
-`;
+`
 
-export default AddProduct;
+export default AddProduct
