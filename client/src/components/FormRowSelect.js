@@ -15,11 +15,11 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
             <option key={index} value={item}>
               {item}
             </option>
-          );
+          )
         })}
       </select>
     </div>
-  );
-};
+  )
+}
 
-export default FormRowSelect;
+export default FormRowSelect

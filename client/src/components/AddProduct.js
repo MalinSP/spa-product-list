@@ -16,16 +16,18 @@ const AddProduct = () => {
     length,
     weight,
     list,
-    defaultOption,
+    category,
     handleChange,
     onChange,
     showContainer,
     showHide,
+    addProduct,
   } = useAppContext()
 
   const onSubmit = (e) => {
     e.preventDefault()
     console.log(e.target.value)
+    addProduct()
   }
 
   const handleProductInput = (e) => {
@@ -38,7 +40,7 @@ const AddProduct = () => {
         <nav>
           <h4>Product Add</h4>
           <div className='btn-container'>
-            <button type='button' className='save-btn'>
+            <button type='button' className='save-btn' onClick={onSubmit}>
               Save
             </button>
             <Link type='button' className='cancel-btn' to='/'>
@@ -46,7 +48,7 @@ const AddProduct = () => {
             </Link>
           </div>
         </nav>
-        <form className='form' onSubmit={onSubmit}>
+        <form className='form'>
           <FormRow
             type='text'
             name='sku'
@@ -67,12 +69,12 @@ const AddProduct = () => {
           />
           <FormRowSelect
             labelText='Type switcher'
-            name='defaultOption'
-            value={defaultOption}
+            name='category'
+            value={category}
             list={list}
             handleChange={handleProductInput}
           />
-          {defaultOption === 'DVD' && (
+          {category === 'DVD' && (
             <div className='dvd'>
               <FormRow
                 type='text'
@@ -82,7 +84,7 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {defaultOption === 'Furniture' && (
+          {category === 'Furniture' && (
             <div className='furniture'>
               <FormRow
                 type='number'
@@ -104,7 +106,7 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {defaultOption === 'Book' && (
+          {category === 'Book' && (
             <div className='book'>
               <FormRow
                 type='number'

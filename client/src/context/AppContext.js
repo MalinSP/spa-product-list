@@ -7,7 +7,9 @@ import {
   DELETE_PRODUCT_BEGIN,
   TOGGLE_PRODUCT,
   HANDLE_CHANGE,
-  SHOW_HIDE,
+  CREATE_PRODUCT_BEGIN,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
 } from './actions.js'
 
 const AppContext = React.createContext()
@@ -27,7 +29,8 @@ const initialState = {
   width: '',
   length: '',
   weight: '',
-  defaultOption: 'DVD',
+  category: '',
+  category: 'DVD',
   list: ['DVD', 'Furniture', 'Book'],
 }
 
@@ -71,6 +74,59 @@ const AppProvider = ({ children }) => {
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
   }
+  const addProduct = async () => {
+    dispatch({ type: CREATE_PRODUCT_BEGIN })
+    try {
+      const {
+        sku,
+        name,
+        price,
+        size,
+        weight,
+        height,
+        width,
+        length,
+        category,
+      } = state
+
+      if (category === 'DVD') {
+        await axios.post('http://localhost:5000/api/v1/add-product', {
+          sku,
+          name,
+          price,
+          size,
+          category,
+        })
+      }
+      if (category === 'Book') {
+        await axios.post('http://localhost:5000/api/v1/add-product', {
+          sku,
+          name,
+          price,
+          weight,
+          category,
+        })
+      }
+      if (category === 'Furniture') {
+        await axios.post('http://localhost:5000/api/v1/add-product', {
+          sku,
+          name,
+          price,
+          height,
+          width,
+          length,
+          category,
+        })
+      }
+      dispatch({ type: CREATE_PRODUCT_SUCCESS })
+    } catch (error) {
+      if (error.response.status === 401) return
+      dispatch({
+        type: CREATE_PRODUCT_ERROR,
+        payload: { msg: error.response.data.msg },
+      })
+    }
+  }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -92,6 +148,7 @@ const AppProvider = ({ children }) => {
         toggleProduct,
         handleChange,
         onSubmit,
+        addProduct,
       }}
     >
       {children}

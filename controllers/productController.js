@@ -3,31 +3,22 @@ import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, CustomAPIError } from '../errors/index.js'
 
 const createProduct = async (req, res) => {
-  const { category } = req.body.category
-  if (category === 'DVD') {
-    const { size, sku, name, price, select } = req.body.dvd
-    if (!sku || !name || !price || !size) {
-      throw new BadRequestError('Please provide all values')
-    }
-    if (category === 'Book') {
-      const { weight, sku, name, price, select } = req.body.book
-      if (!sku || !name || !price || !weight) {
-        throw new BadRequestError('Please provide all values')
-      }
-    }
-    if (category === 'Furniture') {
-      const { height, width, length, sku, name, price, select } =
-        req.body.furniture
-      if (!sku || !name || !price || !height || !width || !length) {
-        throw new BadRequestError('Please provide all values')
-      }
-    }
+  const { category, height, width, length, sku, name, price, weight, size } =
+    req.body
 
-    const product = await Product.create(req.body)
-    console.log(product)
-    res.status(StatusCodes.CREATED).json({ product })
-  }
+  const product = await Product.create({
+    sku,
+    name,
+    price,
+    category,
+    weight,
+    size,
+    dimensions: { height, width, length },
+  })
+  console.log(product)
+  res.status(StatusCodes.CREATED).json({ product })
 }
+
 const getAllProducts = async (req, res) => {
   const products = await Product.find({})
   res

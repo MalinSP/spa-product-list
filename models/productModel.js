@@ -39,7 +39,10 @@ const ProductSchema = new mongoose.Schema(
     //   ref: 'Product',
     //   required: [true, 'Please provide user'],
     // },
-    select: false,
+    select: {
+      type: Boolean,
+      default: false,
+    },
   }
   // {
   //   timestamps: true,

@@ -5,6 +5,9 @@ import {
   TOGGLE_PRODUCT,
   HANDLE_CHANGE,
   SHOW_HIDE,
+  CREATE_PRODUCT_BEGIN,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
 } from './actions.js'
 
 const reducer = (state, action) => {
@@ -49,6 +52,27 @@ const reducer = (state, action) => {
     return {
       ...state,
       [action.payload.name]: action.payload.value,
+    }
+  }
+  if (action.type === CREATE_PRODUCT_BEGIN) {
+    return { ...state, isLoading: true }
+  }
+  if (action.type === CREATE_PRODUCT_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'New Job Created!',
+    }
+  }
+  if (action.type === CREATE_PRODUCT_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
     }
   }
 
