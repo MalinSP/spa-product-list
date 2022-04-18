@@ -13,6 +13,7 @@ const Header = ({ deleteProduct, selectedItems }) => {
           <button
             type='button'
             className='btn-delete'
+            id='delete-product-btn'
             onClick={() => deleteProduct(selectedItems)}
           >
             Mass Delete
@@ -33,7 +34,7 @@ const Wrapper = styled.header`
     background: #474839;
     border-color: transparent;
     font-size: 1rem;
-    text-transform: capitalize;
+    text-transform: uppercase;
     margin: 0 0.5rem;
     letter-spacing: 1px;
     padding: 0.375rem 0.75rem;
@@ -48,7 +49,7 @@ const Wrapper = styled.header`
     background: #b35f5f;
     border-color: transparent;
     font-size: 1rem;
-    text-transform: capitalize;
+    text-transform: uppercase;
     margin: 0 0.5rem;
     letter-spacing: 1px;
     padding: 0.375rem 0.75rem;

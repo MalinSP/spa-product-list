@@ -1,8 +1,6 @@
-import Header from "./components/Header.js";
-import ProductList from "./components/ProductList.js";
-import Footer from "./components/Footer.js";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import AddProduct from "./components/AddProduct.js";
+import ProductList from "./pages/ProductList.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AddProduct from "./pages/AddProduct.js";
 
 function App() {
   return (

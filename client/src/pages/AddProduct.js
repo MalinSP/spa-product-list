@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { useAppContext } from '../context/AppContext'
-import Footer from './Footer'
-import FormRow from './FormRow'
-import FormRowSelect from './FormRowSelect'
+import { Link, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useAppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
+import FormRow from "../components/FormRow";
+import FormRowSelect from "../components/FormRowSelect";
+import Alert from "../components/Alert.js";
 
 const AddProduct = () => {
   const {
@@ -18,21 +20,64 @@ const AddProduct = () => {
     list,
     category,
     handleChange,
-    onChange,
-    showContainer,
-    showHide,
     addProduct,
-  } = useAppContext()
+    displayAlert,
+    showAlert,
+    product,
+    clearValues,
+  } = useAppContext();
+
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    console.log(e.target.value)
-    addProduct()
-  }
+    e.preventDefault();
+    // addProduct();
+    // if (toDashboard) {
+    //   return <Navigate to='/' />;
+    // }
+    // navigate("/");
+    // clearValues();
+  };
+
+  // useEffect(() => {
+  //   if (product) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 3000);
+  //   }
+  // }, [product, navigate]);
 
   const handleProductInput = (e) => {
-    handleChange({ name: e.target.name, value: e.target.value })
-  }
+    handleChange({ name: e.target.name, value: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("you submitted");
+    // const { sku, name, price, size } = e.target.element;
+
+    console.log(e.target.element.id);
+    if (!sku || !name || !price || !size) {
+      displayAlert();
+      return;
+    } else {
+      addProduct();
+      navigate("/");
+    }
+    if (!sku || !name || !price || !weight) {
+      displayAlert();
+      return;
+    } else {
+      addProduct();
+      navigate("/");
+    }
+    if (!sku || !name || !price || !height || !width || !length) {
+      displayAlert();
+      return;
+    } else {
+      addProduct();
+      navigate("/");
+    }
+  };
 
   return (
     <Wrapper>
@@ -40,7 +85,12 @@ const AddProduct = () => {
         <nav>
           <h4>Product Add</h4>
           <div className='btn-container'>
-            <button type='button' className='save-btn' onClick={onSubmit}>
+            <button
+              type='submit'
+              className='save-btn'
+              onClick={handleSubmit}
+              id='product_form'
+            >
               Save
             </button>
             <Link type='button' className='cancel-btn' to='/'>
@@ -48,34 +98,40 @@ const AddProduct = () => {
             </Link>
           </div>
         </nav>
-        <form className='form'>
+        <form className='form' id='product_form'>
+          {showAlert && <Alert />}
           <FormRow
+            id='sku'
             type='text'
             name='sku'
             value={sku}
             handleChange={handleProductInput}
           />
           <FormRow
+            id='name'
             type='text'
             name='name'
             value={name}
             handleChange={handleProductInput}
           />
           <FormRow
+            id='price'
             type='number'
             name='price'
             value={price}
             handleChange={handleProductInput}
           />
           <FormRowSelect
+            id='productType'
             labelText='Type switcher'
             name='category'
             value={category}
             list={list}
             handleChange={handleProductInput}
           />
-          {category === 'DVD' && (
-            <div className='dvd'>
+          {category === "DVD" && (
+            <div className='dvd' id='DVD'>
+              <p>Please provide size in MB</p>
               <FormRow
                 type='text'
                 name='size'
@@ -84,8 +140,9 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === 'Furniture' && (
-            <div className='furniture'>
+          {category === "Furniture" && (
+            <div className='furniture' id='Furniture'>
+              <p>Please provide dimensions in HxWxL format</p>
               <FormRow
                 type='number'
                 name='height'
@@ -106,8 +163,9 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === 'Book' && (
-            <div className='book'>
+          {category === "Book" && (
+            <div className='book' id='Book'>
+              <p>Please provide weight in KG</p>
               <FormRow
                 type='number'
                 name='weight'
@@ -119,8 +177,8 @@ const AddProduct = () => {
         </form>
       </main>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.header`
   nav {
@@ -158,6 +216,9 @@ const Wrapper = styled.header`
     font-size: 0.8rem;
     text-decoration: none;
   }
-`
+  .sku {
+    text-transform: uppercase;
+  }
+`;
 
-export default AddProduct
+export default AddProduct;

@@ -16,6 +16,7 @@ const Product = ({
       <div className='header'>
         <input
           type='checkbox'
+          className='delete-checkbox'
           name={name}
           checked={select}
           id={_id}

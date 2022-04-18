@@ -5,6 +5,7 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
         {labelText || name}
       </label>
       <select
+        id='productType'
         name={name}
         value={value}
         onChange={handleChange}
@@ -12,14 +13,14 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
       >
         {list.map((item, index) => {
           return (
-            <option key={index} value={item}>
+            <option key={index} value={item || labelText}>
               {item}
             </option>
-          )
+          );
         })}
       </select>
     </div>
-  )
-}
+  );
+};
 
-export default FormRowSelect
+export default FormRowSelect;

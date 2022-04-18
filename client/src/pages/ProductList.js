@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import Product from "./Product.js";
+import Product from "../components/Product.js";
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext.js";
-import Header from "./Header.js";
-import Footer from "./Footer.js";
+import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
 const ProductList = () => {
   const {
@@ -18,10 +18,6 @@ const ProductList = () => {
   useEffect(() => {
     getProducts();
   }, []);
-
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
 
   return (
     <main>

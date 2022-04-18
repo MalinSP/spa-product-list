@@ -45,6 +45,9 @@ main {
   height: 1rem;
   max-width: 50%;
 }
+.sku {
+  text-transform: uppercase;
+}
 .form-select {
   max-width: 58%;
 }
@@ -72,4 +75,21 @@ main {
   /* padding: 2rem 2.5rem;
   margin: 3rem auto;
   transition: var(--transition); */
+}
+.alert {
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 1rem;
+  border-color: transparent;
+  border-radius: 0.25rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+}
+
+.alert-danger {
+  color: red;
+  background: rgb(225, 147, 147);
+}
+.alert-success {
+  color: green;
+  background: rgb(154, 199, 154);
 }
