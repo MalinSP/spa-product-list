@@ -1,11 +1,33 @@
-import { Link, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useAppContext } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
-import FormRow from "../components/FormRow";
-import FormRowSelect from "../components/FormRowSelect";
-import Alert from "../components/Alert.js";
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import styled from 'styled-components'
+import { useAppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
+import FormRow from '../components/FormRow'
+import FormRowSelect from '../components/FormRowSelect'
+import Alert from '../components/Alert.js'
+import { useState } from 'react'
+
+const useValidation = (value, validations) => {
+  const [isEmpty, setEmpty] = useState(true)
+  const [minLengthError, setMinLengthError] = useState(false)
+
+  useEffect(() => {
+    for (const validation in validations) {
+      switch (validation) {
+        case 'minLength':
+          value.length < validations[validation]
+            ? setMinLengthError(true)
+            : setMinLengthError(false)
+          break
+        case 'isEmpty':
+          value ? setEmpty(false) : setEmpty(true)
+          break
+      }
+    }
+  }, [value])
+  return { isEmpty, minLengthError }
+}
 
 const AddProduct = () => {
   const {
@@ -25,59 +47,38 @@ const AddProduct = () => {
     showAlert,
     product,
     clearValues,
-  } = useAppContext();
+  } = useAppContext()
 
-  const navigate = useNavigate();
+  const valid = useValidation()
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    // addProduct();
-    // if (toDashboard) {
-    //   return <Navigate to='/' />;
-    // }
-    // navigate("/");
-    // clearValues();
-  };
+  const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   if (product) {
-  //     setTimeout(() => {
-  //       navigate("/");
-  //     }, 3000);
-  //   }
-  // }, [product, navigate]);
+  // const onSubmit = (e) => {
+  //   e.preventDefault()
+  //   // addProduct();
+  //   // if (toDashboard) {
+  //   //   return <Navigate to='/' />;
+  //   // }
+  //   // navigate("/");
+  //   // clearValues();
+  // }
+
+  useEffect(() => {
+    if (product) {
+      setTimeout(() => {
+        navigate('/')
+      }, 2000)
+    }
+  }, [product, navigate])
 
   const handleProductInput = (e) => {
-    handleChange({ name: e.target.name, value: e.target.value });
-  };
+    handleChange({ name: e.target.name, value: e.target.value })
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("you submitted");
-    // const { sku, name, price, size } = e.target.element;
-
-    console.log(e.target.element.id);
-    if (!sku || !name || !price || !size) {
-      displayAlert();
-      return;
-    } else {
-      addProduct();
-      navigate("/");
-    }
-    if (!sku || !name || !price || !weight) {
-      displayAlert();
-      return;
-    } else {
-      addProduct();
-      navigate("/");
-    }
-    if (!sku || !name || !price || !height || !width || !length) {
-      displayAlert();
-      return;
-    } else {
-      addProduct();
-      navigate("/");
-    }
-  };
+    e.preventDefault()
+    addProduct()
+    clearValues()
+  }
 
   return (
     <Wrapper>
@@ -107,6 +108,7 @@ const AddProduct = () => {
             value={sku}
             handleChange={handleProductInput}
           />
+
           <FormRow
             id='name'
             type='text'
@@ -129,7 +131,7 @@ const AddProduct = () => {
             list={list}
             handleChange={handleProductInput}
           />
-          {category === "DVD" && (
+          {category === 'DVD' && (
             <div className='dvd' id='DVD'>
               <p>Please provide size in MB</p>
               <FormRow
@@ -140,7 +142,7 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === "Furniture" && (
+          {category === 'Furniture' && (
             <div className='furniture' id='Furniture'>
               <p>Please provide dimensions in HxWxL format</p>
               <FormRow
@@ -163,7 +165,7 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === "Book" && (
+          {category === 'Book' && (
             <div className='book' id='Book'>
               <p>Please provide weight in KG</p>
               <FormRow
@@ -177,8 +179,8 @@ const AddProduct = () => {
         </form>
       </main>
     </Wrapper>
-  );
-};
+  )
+}
 
 const Wrapper = styled.header`
   nav {
@@ -219,6 +221,6 @@ const Wrapper = styled.header`
   .sku {
     text-transform: uppercase;
   }
-`;
+`
 
-export default AddProduct;
+export default AddProduct
