@@ -5,10 +5,10 @@ const createProduct = async (req, res) => {
   const { category, height, width, length, sku, name, price, weight, size } =
     req.body
 
-  const uniqueSKU = await Product.find({
-    sku: { $exists: true },
+  const uniqueSKU = await Product.findOne({
+    sku: req.body.sku,
   })
-  console.log(uniqueSKU)
+
   if (!uniqueSKU) {
     const product = await Product.create({
       sku,
@@ -21,7 +21,7 @@ const createProduct = async (req, res) => {
     })
     res.status(StatusCodes.CREATED).json({ product })
   } else {
-    res.status(404).json({ msg: 'product already exist' })
+    res.status(StatusCodes.BAD_REQUEST).json({ msg: 'product already exist' })
   }
 }
 

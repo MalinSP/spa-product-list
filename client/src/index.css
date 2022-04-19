@@ -69,3 +69,15 @@ main {
 .alert {
   color: red;
 }
+.alert-component {
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 1rem;
+  border-color: transparent;
+  border-radius: 0.25rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+}
+.alert-danger {
+  color: red;
+  background: rgb(254, 197, 197);
+}

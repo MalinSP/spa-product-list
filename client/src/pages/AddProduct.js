@@ -7,6 +7,7 @@ import FormRow from '../components/FormRow'
 import FormRowSelect from '../components/FormRowSelect'
 import { useState } from 'react'
 import { validate } from '../functions/validate'
+import Alert from '../components/Alert'
 
 const AddProduct = () => {
   const {
@@ -24,6 +25,7 @@ const AddProduct = () => {
     addProduct,
     product,
     clearValues,
+    showAlert,
   } = useAppContext()
 
   const [formErrors, setFormErrors] = useState({})
@@ -41,7 +43,7 @@ const AddProduct = () => {
         clearValues()
       }, 3000)
     }
-  }, [product, navigate])
+  }, [product, navigate, clearValues])
 
   const handleProductInput = (e) => {
     handleChange({ name: e.target.name, value: e.target.value })
@@ -75,7 +77,8 @@ const AddProduct = () => {
               Cancel
             </Link>
           </div>
-        </nav>
+        </nav>{' '}
+        {showAlert && <Alert />}
         <form className='form' id='product_form'>
           {<div className='alert'>{formErrors.sku}</div>}
           <FormRow

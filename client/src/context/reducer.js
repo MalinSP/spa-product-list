@@ -66,6 +66,9 @@ const reducer = (state, action) => {
   if (action.type === CREATE_PRODUCT_ERROR) {
     return {
       ...state,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: 'SKU already exist',
     }
   }
   if (action.type === CLEAR_VALUES) {

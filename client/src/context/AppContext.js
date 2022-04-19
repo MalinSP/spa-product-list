@@ -17,8 +17,8 @@ const AppContext = React.createContext()
 
 const initialState = {
   showAlert: false,
-  alertType: '',
   alertText: '',
+  alertType: '',
   products: [],
   product: false,
   totalProducts: 0,
@@ -125,7 +125,6 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 401) return
       dispatch({
         type: CREATE_PRODUCT_ERROR,
-        payload: { msg: error.response.data.msg },
       })
     }
   }
