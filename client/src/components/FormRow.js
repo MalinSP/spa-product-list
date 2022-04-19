@@ -2,16 +2,16 @@ const FormRow = ({ type, name, value, handleChange }) => {
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>
-        {name === "sku"
+        {name === 'sku'
           ? name.toUpperCase()
-          : name === "price"
-          ? name + " ($)"
-          : name === "size"
-          ? name + " (MB)"
-          : name === "weight"
-          ? name + " (KG)"
-          : name === "height" || name === "width" || name === "length"
-          ? name + " (СМ)"
+          : name === 'price'
+          ? name + ' ($)'
+          : name === 'size'
+          ? name + ' (MB)'
+          : name === 'weight'
+          ? name + ' (KG)'
+          : name === 'height' || name === 'width' || name === 'length'
+          ? name + ' (СМ)'
           : name}
       </label>
 
@@ -26,7 +26,7 @@ const FormRow = ({ type, name, value, handleChange }) => {
         placeholder={`#${name}`}
       />
     </div>
-  );
-};
+  )
+}
 
-export default FormRow;
+export default FormRow

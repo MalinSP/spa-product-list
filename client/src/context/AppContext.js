@@ -1,7 +1,6 @@
 import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import reducer from './reducer.js'
-import { Navigate, useNavigate } from 'react-router-dom'
 import {
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,
@@ -11,8 +10,6 @@ import {
   CREATE_PRODUCT_BEGIN,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
-  DISPLAY_ALERT,
-  CLEAR_ALERT,
   CLEAR_VALUES,
 } from './actions.js'
 
@@ -35,7 +32,6 @@ const initialState = {
   width: '',
   length: '',
   weight: '',
-  category: '',
   category: 'DVD',
   list: ['DVD', 'Furniture', 'Book'],
 }
@@ -43,17 +39,10 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // const navigate = useNavigate();
-
-  const authFetch = axios.create({
-    baseURL: '/api/v1',
-  })
-
   const getProducts = async () => {
-    let url = '/'
     dispatch({ type: GET_PRODUCTS_BEGIN })
     try {
-      const { data } = await authFetch(url)
+      const { data } = await axios.get('http://localhost:5000/api/v1/')
       const { products, totalProducts, numOfPages } = data
       dispatch({
         type: GET_PRODUCTS_SUCCESS,
@@ -90,7 +79,6 @@ const AppProvider = ({ children }) => {
       if (category === 'DVD') {
         const { sku, name, price, size } = state
         if (!sku || !name || !price || !size) {
-          displayAlert()
           return
         }
         await axios.post('http://localhost:5000/api/v1/add-product', {
@@ -106,7 +94,6 @@ const AppProvider = ({ children }) => {
       if (category === 'Book') {
         const { sku, name, price, weight } = state
         if (!sku || !name || !price || !weight) {
-          displayAlert()
           return
         }
         await axios.post('http://localhost:5000/api/v1/add-product', {
@@ -121,7 +108,6 @@ const AppProvider = ({ children }) => {
       if (category === 'Furniture') {
         const { sku, name, price, height, width, length } = state
         if (!sku || !name || !price || !height || !width || !length) {
-          displayAlert()
           return
         }
         await axios.post('http://localhost:5000/api/v1/add-product', {
@@ -135,8 +121,6 @@ const AppProvider = ({ children }) => {
         })
         dispatch({ type: CREATE_PRODUCT_SUCCESS })
       }
-
-      // navigate("/");
     } catch (error) {
       if (error.response.status === 401) return
       dispatch({
@@ -145,31 +129,9 @@ const AppProvider = ({ children }) => {
       })
     }
   }
-
-  const onSubmit = (e) => {
-    e.preventDefault()
-    // const { name, email, password, isMember } = values
-    // if (!email || !password || (!isMember && !name)) {
-    //   // displayAlert()
-    //   console.log('Empty values')
-    //   return
-    // }
-    // console.log(values)
-  }
-
-  const displayAlert = () => {
-    dispatch({ type: DISPLAY_ALERT })
-    clearAlert()
-  }
-  const clearAlert = () => {
-    setTimeout(() => {
-      dispatch({ type: CLEAR_ALERT })
-    }, 3000)
-  }
   const clearValues = () => {
     dispatch({ type: CLEAR_VALUES })
   }
-
   return (
     <AppContext.Provider
       value={{
@@ -178,10 +140,7 @@ const AppProvider = ({ children }) => {
         deleteProduct,
         toggleProduct,
         handleChange,
-        onSubmit,
         addProduct,
-        displayAlert,
-        clearAlert,
         clearValues,
       }}
     >

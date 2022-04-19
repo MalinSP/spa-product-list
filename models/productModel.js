@@ -1,52 +1,43 @@
 import mongoose from 'mongoose'
 
-const ProductSchema = new mongoose.Schema(
-  {
-    sku: {
-      type: String,
-      required: [true, 'Please provide SKU'],
-    },
-    name: {
-      type: String,
-      required: [true, 'Please provide name'],
-    },
-    price: {
-      type: Number,
-      required: [true, 'Please provide price'],
-    },
-    category: {
-      type: String,
-    },
-    dimensions: {
-      height: {
-        type: Number,
-      },
-      width: {
-        type: Number,
-      },
-      length: {
-        type: Number,
-      },
-    },
-    weight: {
+const ProductSchema = new mongoose.Schema({
+  sku: {
+    type: String,
+    required: [true, 'Please provide SKU'],
+  },
+  name: {
+    type: String,
+    required: [true, 'Please provide name'],
+  },
+  price: {
+    type: Number,
+    required: [true, 'Please provide price'],
+  },
+  category: {
+    type: String,
+  },
+  dimensions: {
+    height: {
       type: Number,
     },
-    size: {
+    width: {
       type: Number,
     },
-    // createdBy: {
-    //   type: mongoose.Types.ObjectId,
-    //   ref: 'Product',
-    //   required: [true, 'Please provide user'],
-    // },
-    select: {
-      type: Boolean,
-      default: false,
+    length: {
+      type: Number,
     },
-  }
-  // {
-  //   timestamps: true,
-  // }
-)
+  },
+  weight: {
+    type: Number,
+  },
+  size: {
+    type: Number,
+  },
+
+  select: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 export default mongoose.model('Product', ProductSchema)

@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import styled from "styled-components";
-import { useAppContext } from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
-import FormRow from "../components/FormRow";
-import FormRowSelect from "../components/FormRowSelect";
-import Alert from "../components/Alert.js";
-import { useState } from "react";
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import styled from 'styled-components'
+import { useAppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom'
+import FormRow from '../components/FormRow'
+import FormRowSelect from '../components/FormRowSelect'
+import { useState } from 'react'
+import { validate } from '../functions/validate'
 
 const AddProduct = () => {
   const {
@@ -22,51 +22,40 @@ const AddProduct = () => {
     category,
     handleChange,
     addProduct,
-    displayAlert,
-    showAlert,
     product,
     clearValues,
-  } = useAppContext();
+  } = useAppContext()
 
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({})
 
-  const validate = (values) => {
-    const errors = {};
+  const removeAlerts = () => {
+    setFormErrors({})
+  }
 
-    if (!sku) {
-      errors.sku = "SKU is required";
-    }
-    if (!name) {
-      errors.name = "Name is required";
-    }
-    if (!price) {
-      errors.price = "Price is required";
-    }
-    return errors;
-  };
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (product) {
       setTimeout(() => {
-        navigate("/");
-      }, 2000);
+        navigate('/')
+        clearValues()
+      }, 3000)
     }
-    clearValues();
-  }, [product, navigate]);
+  }, [product, navigate])
 
   const handleProductInput = (e) => {
-    handleChange({ name: e.target.name, value: e.target.value });
-  };
+    handleChange({ name: e.target.name, value: e.target.value })
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    addProduct();
+    e.preventDefault()
     setFormErrors(
       validate({ sku, name, price, size, weight, length, width, height })
-    );
-    setTimeout(() => {}, 2000);
-  };
+    )
+    addProduct()
+    setTimeout(() => {
+      removeAlerts()
+    }, 1000)
+  }
 
   return (
     <Wrapper>
@@ -88,8 +77,7 @@ const AddProduct = () => {
           </div>
         </nav>
         <form className='form' id='product_form'>
-          {/* {showAlert && <Alert />} */}
-          <p>{formErrors.sku}</p>
+          {<div className='alert'>{formErrors.sku}</div>}
           <FormRow
             id='sku'
             type='text'
@@ -98,7 +86,7 @@ const AddProduct = () => {
             handleChange={handleProductInput}
           />
 
-          <p>{formErrors.name}</p>
+          {<div className='alert'>{formErrors.name}</div>}
           <FormRow
             id='name'
             type='text'
@@ -106,7 +94,7 @@ const AddProduct = () => {
             value={name}
             handleChange={handleProductInput}
           />
-          <p>{formErrors.price}</p>
+          {<div className='alert'>{formErrors.price}</div>}
           <FormRow
             id='price'
             type='number'
@@ -122,9 +110,10 @@ const AddProduct = () => {
             list={list}
             handleChange={handleProductInput}
           />
-          {category === "DVD" && (
+          {category === 'DVD' && (
             <div className='dvd' id='DVD'>
               <p>Please provide size in MB</p>
+              {<div className='alert'>{formErrors.size}</div>}
               <FormRow
                 type='text'
                 name='size'
@@ -133,21 +122,24 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === "Furniture" && (
+          {category === 'Furniture' && (
             <div className='furniture' id='Furniture'>
               <p>Please provide dimensions in HxWxL format</p>
+              {<div className='alert'>{formErrors.height}</div>}
               <FormRow
                 type='number'
                 name='height'
                 value={height}
                 handleChange={handleProductInput}
               />
+              {<div className='alert'>{formErrors.width}</div>}
               <FormRow
                 type='number'
                 name='width'
                 value={width}
                 handleChange={handleProductInput}
               />
+              {<div className='alert'>{formErrors.length}</div>}
               <FormRow
                 type='number'
                 name='length'
@@ -156,9 +148,10 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === "Book" && (
+          {category === 'Book' && (
             <div className='book' id='Book'>
               <p>Please provide weight in KG</p>
+              {<div className='alert'>{formErrors.weight}</div>}
               <FormRow
                 type='number'
                 name='weight'
@@ -170,8 +163,8 @@ const AddProduct = () => {
         </form>
       </main>
     </Wrapper>
-  );
-};
+  )
+}
 
 const Wrapper = styled.header`
   nav {
@@ -212,6 +205,6 @@ const Wrapper = styled.header`
   .sku {
     text-transform: uppercase;
   }
-`;
+`
 
-export default AddProduct;
+export default AddProduct
