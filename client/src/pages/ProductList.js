@@ -1,17 +1,18 @@
-import { useEffect } from 'react'
-import Product from '../components/Product.js'
-import styled from 'styled-components'
-import { useAppContext } from '../context/AppContext.js'
-import Header from '../components/Header.js'
-import Footer from '../components/Footer.js'
+import { useEffect } from "react";
+import Product from "../components/Product.js";
+import styled from "styled-components";
+import { useAppContext } from "../context/AppContext.js";
+import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
 const ProductList = () => {
   const { products, getProducts, deleteProduct, toggleProduct, selectedItems } =
-    useAppContext()
+    useAppContext();
 
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <main>
@@ -30,13 +31,13 @@ const ProductList = () => {
               deleteProduct={deleteProduct}
               toggleProduct={toggleProduct}
             />
-          )
+          );
         })}
       </Wrapper>
       <Footer />
     </main>
-  )
-}
+  );
+};
 
 const Wrapper = styled.div`
   width: 90vw;
@@ -48,6 +49,6 @@ const Wrapper = styled.div`
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-`
+`;
 
-export default ProductList
+export default ProductList;

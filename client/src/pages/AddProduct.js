@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
-import styled from 'styled-components'
-import { useAppContext } from '../context/AppContext'
-import { useNavigate } from 'react-router-dom'
-import FormRow from '../components/FormRow'
-import FormRowSelect from '../components/FormRowSelect'
-import { useState } from 'react'
-import { validate } from '../functions/validate'
-import Alert from '../components/Alert'
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import styled from "styled-components";
+import { useAppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
+import FormRow from "../components/FormRow";
+import FormRowSelect from "../components/FormRowSelect";
+import { useState } from "react";
+import { validate } from "../functions/validate";
+import Alert from "../components/Alert";
 
 const AddProduct = () => {
   const {
@@ -26,38 +26,38 @@ const AddProduct = () => {
     product,
     clearValues,
     showAlert,
-  } = useAppContext()
+  } = useAppContext();
 
-  const [formErrors, setFormErrors] = useState({})
+  const [formErrors, setFormErrors] = useState({});
 
-  const removeAlerts = () => {
-    setFormErrors({})
-  }
+  const removeAlertsErrors = () => {
+    setFormErrors({});
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (product) {
       setTimeout(() => {
-        navigate('/')
-        clearValues()
-      }, 3000)
+        navigate("/");
+        clearValues();
+      }, 2000);
     }
-  }, [product, navigate, clearValues])
+  }, [product, navigate, clearValues]);
 
   const handleProductInput = (e) => {
-    handleChange({ name: e.target.name, value: e.target.value })
-  }
+    handleChange({ name: e.target.name, value: e.target.value });
+  };
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setFormErrors(
       validate({ sku, name, price, size, weight, length, width, height })
-    )
-    addProduct()
+    );
+    addProduct();
     setTimeout(() => {
-      removeAlerts()
-    }, 1000)
-  }
+      removeAlertsErrors();
+    }, 1000);
+  };
 
   return (
     <Wrapper>
@@ -77,9 +77,9 @@ const AddProduct = () => {
               Cancel
             </Link>
           </div>
-        </nav>{' '}
-        {showAlert && <Alert />}
+        </nav>{" "}
         <form className='form' id='product_form'>
+          {showAlert && <Alert />}
           {<div className='alert'>{formErrors.sku}</div>}
           <FormRow
             id='sku'
@@ -88,7 +88,6 @@ const AddProduct = () => {
             value={sku}
             handleChange={handleProductInput}
           />
-
           {<div className='alert'>{formErrors.name}</div>}
           <FormRow
             id='name'
@@ -113,7 +112,7 @@ const AddProduct = () => {
             list={list}
             handleChange={handleProductInput}
           />
-          {category === 'DVD' && (
+          {category === "DVD" && (
             <div className='dvd' id='DVD'>
               <p>Please provide size in MB</p>
               {<div className='alert'>{formErrors.size}</div>}
@@ -125,7 +124,7 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === 'Furniture' && (
+          {category === "Furniture" && (
             <div className='furniture' id='Furniture'>
               <p>Please provide dimensions in HxWxL format</p>
               {<div className='alert'>{formErrors.height}</div>}
@@ -151,7 +150,7 @@ const AddProduct = () => {
               />
             </div>
           )}
-          {category === 'Book' && (
+          {category === "Book" && (
             <div className='book' id='Book'>
               <p>Please provide weight in KG</p>
               {<div className='alert'>{formErrors.weight}</div>}
@@ -166,8 +165,8 @@ const AddProduct = () => {
         </form>
       </main>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.header`
   nav {
@@ -208,6 +207,10 @@ const Wrapper = styled.header`
   .sku {
     text-transform: uppercase;
   }
-`
+  .furniture {
+    display: grid;
+    gap: 0.4rem;
+  }
+`;
 
-export default AddProduct
+export default AddProduct;
